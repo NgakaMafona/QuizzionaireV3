@@ -1,5 +1,9 @@
 package za.co.codetribe.quizzionarev3.BackgroundTask;
 
+import android.util.Log;
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -8,15 +12,15 @@ import java.util.Random;
 
 public class Randomize
 {
-    private String[] random_Qs;
-    private String[] random_Ans;
+    private String[] random_Qs = new String[5];
+    private String[] random_Ans = new String[5];
 
     public Randomize()
     {
 
     }
 
-    public String[] randomize(String[] questions, String[] answers)
+    /*public String[] randomize(String[] questions, String[] answers)
     {
         //count for array length
         int count = 0;
@@ -28,15 +32,27 @@ public class Randomize
         for (int x = 0; x < questions.length;x++)
         {
             count+=1;
+
+            Log.d("Count : ", ""+count);
         }
 
         for (int x = 0; x < count; x++)
         {
+
+            Log.d("x : ", ""+x);
+
             random_number = (random.nextInt(count - 1) + 1)+1;
+
+            Log.d("Random Number : ", ""+random_number);
 
             if(x <= 4)
             {
+                Log.d("Index : " + x, "inserting");
+
                 random_Qs[x] = questions[random_number];
+
+                Log.d("Index : " + x, "inserting");
+
                 random_Ans[x] = answers[random_number];
             }
             else
@@ -45,10 +61,30 @@ public class Randomize
         }
 
         return random_Qs;
+    }*/
+
+    public String[] randomize(String[] questions, String[] answers)
+    {
+        //count for array length
+
+        Collections.shuffle(Arrays.asList(questions));
+
+        for(int x = 0; x < 5;x++)
+        {
+
+            random_Qs[x] = questions[x];
+        }
+
+        return random_Qs;
     }
 
-    public String[] getRandomAnsers()
+    public String[] getRandomAnsers(String[] questions)
     {
+        for(int x = 0; x < 5;x++)
+        {
+            
+        }
+
         return random_Ans;
     }
 }

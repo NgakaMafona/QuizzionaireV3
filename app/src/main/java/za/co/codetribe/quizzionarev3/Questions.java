@@ -12,7 +12,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import za.co.codetribe.quizzionarev3.BackgroundTask.Randomize;
 import za.co.codetribe.quizzionarev3.BackgroundTask.Topic;
 
 public class Questions extends AppCompatActivity
@@ -24,6 +26,7 @@ public class Questions extends AppCompatActivity
     ArrayList<String> list;
 
     Topic top;
+    Randomize random;
 
     String[] questions;
     String[] answer;
@@ -42,16 +45,19 @@ public class Questions extends AppCompatActivity
         topic = i.getStringExtra("title");
 
         top = new Topic();
+        random = new Randomize();
 
         questions = top.getQuestions(topic);
         answer = top.getAnswers(topic);
-        
+
+        String[] ran_ques = random.randomize(questions,answer);
+
         list = new ArrayList<String>();
         String q = "";
 
-        for(int x  = 0; x < questions.length;x++)
+        for(int x  = 0; x < ran_ques.length;x++)
         {
-            q = questions[x];
+            q = ran_ques[x];
 
             list.add(q);
         }
