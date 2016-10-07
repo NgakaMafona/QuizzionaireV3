@@ -67,23 +67,20 @@ public class Randomize
     {
         //count for array length
 
-        Collections.shuffle(Arrays.asList(questions));
+        Collections.shuffle(Arrays.asList(questions,answers));
 
         for(int x = 0; x < 5;x++)
         {
 
             random_Qs[x] = questions[x];
+            random_Ans[x] = answers[x];
         }
 
         return random_Qs;
     }
 
-    public String[] getRandomAnsers(String[] questions)
+    public String[] getRandomAnsers()
     {
-        for(int x = 0; x < 5;x++)
-        {
-            
-        }
 
         return random_Ans;
     }

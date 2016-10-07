@@ -31,6 +31,9 @@ public class Questions extends AppCompatActivity
     String[] questions;
     String[] answer;
 
+    String[] ran_ques;
+    String[] ran_answ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -50,20 +53,35 @@ public class Questions extends AppCompatActivity
         questions = top.getQuestions(topic);
         answer = top.getAnswers(topic);
 
-        String[] ran_ques = random.randomize(questions,answer);
+        ran_ques = random.randomize(questions,answer);
+        ran_answ = random.getRandomAnsers();
 
         list = new ArrayList<String>();
         String q = "";
+        String a = "";
 
         for(int x  = 0; x < ran_ques.length;x++)
         {
             q = ran_ques[x];
 
+            a = ran_answ[x];
+
             list.add(q);
+            list.add(a);
         }
 
         adapter = new ArrayAdapter<String>(Questions.this,android.R.layout.simple_list_item_1,list);
         lv.setAdapter(adapter);
+
+
+       /* lv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
