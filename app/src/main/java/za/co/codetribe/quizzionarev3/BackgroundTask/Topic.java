@@ -8,6 +8,8 @@ public class Topic
 {
     private String topic;
 
+    private String[] index = {"0","1","2","3","4","5","6","7","8","9"};
+
     //Movies Q&A
     private String[] m_questions = {"M1_Q","M2_Q","M3_Q","M4_Q","M5_Q","M6_Q","M7_Q","M8_Q","M9_Q","M10_Q"};
     private String[] m_answers = {"M1_A","M2_A","M3_A","M4_A","M5_A","M6_A","M7_A","M8_A","M9_A","M10_A"};
@@ -63,5 +65,51 @@ public class Topic
         }
 
         return null;
+    }
+
+    public String[] getIndex()
+    {
+        return index;
+    }
+
+    //get single questions based on recieved random index
+    public String getQuestion(int i, String topic)
+    {
+        String q = "";
+
+        if(topic.equalsIgnoreCase("movies"))
+        {
+            q = m_questions[i];
+        }
+        else if(topic.equalsIgnoreCase("cars"))
+        {
+            q = c_questions[i];
+        }
+        else if(topic.equalsIgnoreCase("tech"))
+        {
+            q = t_questions[i];
+        }
+
+        return q;
+    }
+
+    public String getAnswer(int i, String topic)
+    {
+        String a = "";
+
+        if(topic.equalsIgnoreCase("movies"))
+        {
+            a = m_answers[i];
+        }
+        else if(topic.equalsIgnoreCase("cars"))
+        {
+            a = c_answers[i];
+        }
+        else if(topic.equalsIgnoreCase("tech"))
+        {
+            a = t_answers[i];
+        }
+
+        return a;
     }
 }
