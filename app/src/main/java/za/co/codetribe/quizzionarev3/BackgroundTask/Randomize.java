@@ -42,4 +42,21 @@ public class Randomize
 
         return random_Ans;
     }
+
+    public String[] otherRandomAnswers(String topic)
+    {
+        Topic top = new Topic();
+        String[] index = top.getIndex();
+        String[] a = new String[3];
+
+        //count for array length
+        Collections.shuffle(Arrays.asList(index));
+
+        for(int x = 0; x < 3;x++)
+        {
+            a[x] = top.getAnswer(Integer.parseInt(index[x]),topic);
+        }
+
+        return a;
+    }
 }

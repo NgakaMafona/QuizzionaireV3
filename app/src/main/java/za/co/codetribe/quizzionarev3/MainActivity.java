@@ -1,6 +1,7 @@
 package za.co.codetribe.quizzionarev3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Animation main_button_animation;
 
+    SharedPreferences answer_pref;
+    SharedPreferences.Editor edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imb_movies = (ImageButton) findViewById(R.id.imb_movies);
         imb_cars = (ImageButton) findViewById(R.id.imb_cars);
         imb_tech = (ImageButton) findViewById(R.id.imb_tech);
+
+        //remove answers from shared preferences
+        answer_pref = getSharedPreferences("answers",0);
+        edit = answer_pref.edit();
+        edit.clear();
+        edit.commit();
 
         imb_movies.setOnClickListener(this);
         imb_cars.setOnClickListener(this);

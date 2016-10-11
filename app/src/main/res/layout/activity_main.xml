@@ -13,7 +13,7 @@
         android:layout_width="90dp"
         android:layout_height="100dp"
         android:background="@drawable/buttonshape"
-        android:src="@drawable/ic_movie_creation_black_68dp"
+        android:src="@drawable/ic_movies_black_68dp"
         android:layout_centerVertical="true"/>
 
     <ImageButton

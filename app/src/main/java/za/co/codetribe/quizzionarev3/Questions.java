@@ -1,6 +1,6 @@
 package za.co.codetribe.quizzionarev3;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -19,7 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import za.co.codetribe.quizzionarev3.BackgroundTask.Randomize;
 import za.co.codetribe.quizzionarev3.BackgroundTask.Topic;
@@ -44,6 +47,9 @@ public class Questions extends AppCompatActivity
     SharedPreferences answer_pref;
     SharedPreferences.Editor edit;
 
+    int questionID = 0;
+
+    String[] answer_radio_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,16 +105,11 @@ public class Questions extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                RadioGroup answer_group = new RadioGroup(Questions.this);
+                questionID = i +1;
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(Questions.this);
-                alert.setTitle("Try your luck");
+               // Toast.makeText(Questions.this,"ID = " + questionID,Toast.LENGTH_LONG).show();
 
-                RadioButton rb = new RadioButton(Questions.this);
-                rb.setText("Try this one");
-                answer_group.addView(rb);
-
-                alert.show();
+               showRadioButtonDialog();
             }
         });
 
@@ -133,6 +134,54 @@ public class Questions extends AppCompatActivity
                 }).show();
             }
         });
+    }
+
+    public void showRadioButtonDialog()
+    {
+        Randomize ran = new Randomize();
+
+        String[] other_answers = ran.otherRandomAnswers(topic);
+
+        SharedPreferences sp = getSharedPreferences("answers",0);
+
+        String correct_answer = sp.getString("Answer Q " + questionID,null);
+
+        Toast.makeText(Questions.this,correct_answer,Toast.LENGTH_LONG).show();
+
+        answer_radio_list = new String[4];
+
+        answer_radio_list[0] = correct_answer;
+
+        for(int x = 1; x < other_answers.length;x++)
+        {
+            answer_radio_list[x] = other_answers[x];
+        }
+
+        Collections.shuffle(Arrays.asList(answer_radio_list));
+
+        // custom dialog
+        final Dialog dialog = new Dialog(Questions.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.rad_answers);
+
+        List<String> stringList=new ArrayList<>();  // here is list
+
+        for(int i=0;i<4;i++)
+        {
+            stringList.add("RadioButton " + (i + 1));
+        }
+        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.grp_answers);
+
+
+        for(int i=0;i<stringList.size();i++)
+        {
+            RadioButton rb = new RadioButton(Questions.this); // dynamically creating RadioButton and adding to RadioGroup.
+            rb.setText(String.valueOf(answer_radio_list));
+            rg.addView(rb);
+        }
+
+        dialog.show();
+
     }
 
 
