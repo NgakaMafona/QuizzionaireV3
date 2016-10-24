@@ -1,22 +1,31 @@
 package za.co.codetribe.quizzionarev3;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +43,9 @@ public class Questions extends AppCompatActivity
     ListView lv;
     ArrayAdapter<String> adapter;
     ArrayList<String> list;
+    RadioGroup group;
+    RadioButton rb;
+    TextView header_title;
 
     Topic top;
     Randomize random;
@@ -51,6 +63,14 @@ public class Questions extends AppCompatActivity
 
     String[] answer_radio_list;
 
+    String correct_answer="";
+
+    int points = 0;
+    int count_ansewerd = 0;
+    int correct_count  = 0;
+
+    String test_selected = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,13 +79,18 @@ public class Questions extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        header_title = (TextView) findViewById(R.id.topic);
+
         lv = (ListView) findViewById(R.id.question_list);
+        group = (RadioGroup) findViewById(R.id.grp_answers);
 
         Animation main_button_animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
         lv.setAnimation(main_button_animation);
 
         Intent i = getIntent();
         topic = i.getStringExtra("title");
+
+        header_title.setText(topic);
 
         top = new Topic();
         random = new Randomize();
@@ -74,7 +99,7 @@ public class Questions extends AppCompatActivity
         answer = top.getAnswers(topic);
 
         ran_ques = random.randomize(topic,questions,answer);
-        ran_answ = random.getRandomAnsers();
+        ran_answ = random.getRandomAnswers();
 
         list = new ArrayList<String>();
         String q = "";
@@ -105,11 +130,16 @@ public class Questions extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                questionID = i +1;
+                questionID = i;
 
                // Toast.makeText(Questions.this,"ID = " + questionID,Toast.LENGTH_LONG).show();
 
                showRadioButtonDialog();
+
+               // lv.getChildAt(i).setEnabled(false);
+
+
+
             }
         });
 
@@ -144,19 +174,22 @@ public class Questions extends AppCompatActivity
 
         SharedPreferences sp = getSharedPreferences("answers",0);
 
-        String correct_answer = sp.getString("Answer Q " + questionID,null);
+        correct_answer = sp.getString("Answer Q " + questionID,null);
 
-        Toast.makeText(Questions.this,correct_answer,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Questions.this,correct_answer,Toast.LENGTH_LONG).show();
 
-        answer_radio_list = new String[4];
+        answer_radio_list = new String[3];
 
         answer_radio_list[0] = correct_answer;
 
         for(int x = 1; x < other_answers.length;x++)
         {
+
             answer_radio_list[x] = other_answers[x];
+
         }
 
+        //Shuffle answers
         Collections.shuffle(Arrays.asList(answer_radio_list));
 
         // custom dialog
@@ -164,25 +197,92 @@ public class Questions extends AppCompatActivity
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.rad_answers);
 
-        List<String> stringList=new ArrayList<>();  // here is list
-
-        for(int i=0;i<4;i++)
-        {
-            stringList.add("RadioButton " + (i + 1));
-        }
         RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.grp_answers);
 
 
-        for(int i=0;i<stringList.size();i++)
+        for(int i=0;i<answer_radio_list.length;i++)
         {
-            RadioButton rb = new RadioButton(Questions.this); // dynamically creating RadioButton and adding to RadioGroup.
-            rb.setText(String.valueOf(answer_radio_list));
+            rb = new RadioButton(Questions.this); // dynamically creating RadioButton and adding to RadioGroup.
+
+            rb.setId(i+i);
+
+            Log.d("Created ID : ",""+rb.getId());
+
+            String temp = answer_radio_list[i];
+
+            rb.setText(temp);
             rg.addView(rb);
         }
 
         dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i)
+            {
+                RadioButton rad = (RadioButton) radioGroup.findViewById(i);
+
+                test_selected = rad.getText().toString();
+
+                if(test_selected.equalsIgnoreCase(correct_answer))
+                {
+                    points +=2;
+                    correct_count+=1;
+                    count_ansewerd+=1;
+                    lv.getChildAt(questionID).setEnabled(false);
+                }
+                else
+                {
+                    points+=0;
+                    count_ansewerd+=1;
+                    lv.getChildAt(questionID).setEnabled(false);
+
+                }
+
+                Handler handler = new Handler();
+
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        dialog.dismiss();
+                    }
+                },1000);
+
+                if(count_ansewerd == 5)
+                {
+                    int wrong = 5 - correct_count;
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(Questions.this);
+                    builder.setTitle("Results");
+                    builder.setMessage("You got " + correct_count + " correct answers \n and " + wrong + " incorrect answers");
+                    builder.create();
+                    builder.show();
+
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener()
+                    {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface)
+                        {
+                            //builder.
+
+                            Intent i = new Intent(Questions.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+
+                }
+
+                Toast.makeText(Questions.this,"answered : " + count_ansewerd,Toast.LENGTH_LONG).show();
+
+            }
+        });
 
     }
-
 
 }

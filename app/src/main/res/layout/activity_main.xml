@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="za.co.codetribe.quizzionarev3.MainActivity"
-    android:background="@drawable/quiz_back4">
+    android:background="@drawable/quiz_back2">
 
     <ImageButton
         android:id="@+id/imb_movies"
@@ -14,7 +14,8 @@
         android:layout_height="100dp"
         android:background="@drawable/buttonshape"
         android:src="@drawable/ic_movies_black_68dp"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/cont_desc_movies"/>
 
     <ImageButton
         android:id="@+id/imb_cars"
@@ -23,7 +24,8 @@
         android:background="@drawable/buttonshape"
         android:src="@drawable/ic_car_80dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/cont_desc_cars"/>
 
     <ImageButton
         android:id="@+id/imb_tech"
@@ -32,6 +34,7 @@
         android:background="@drawable/buttonshape"
         android:src="@drawable/ic_tech_68dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/cont_desc_tech"/>
 
 </RelativeLayout>

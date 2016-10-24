@@ -15,6 +15,8 @@ public class Randomize
     private String[] random_Qs = new String[5];
     private String[] random_Ans = new String[5];
 
+    private String[] selected_answers = new String[5];
+
     public Randomize()
     {
 
@@ -32,14 +34,15 @@ public class Randomize
         {
            random_Qs[x] = top.getQuestion(Integer.parseInt(index[x]),topic);
            random_Ans[x] = top.getAnswer(Integer.parseInt(index[x]),topic);
+
+            selected_answers[x] = ""+index[x];
         }
 
         return random_Qs;
     }
 
-    public String[] getRandomAnsers()
+    public String[] getRandomAnswers()
     {
-
         return random_Ans;
     }
 
@@ -49,12 +52,26 @@ public class Randomize
         String[] index = top.getIndex();
         String[] a = new String[3];
 
+        String retuened_index = "";
+        String selected_index = "";
+
+
         //count for array length
         Collections.shuffle(Arrays.asList(index));
-
         for(int x = 0; x < 3;x++)
         {
-            a[x] = top.getAnswer(Integer.parseInt(index[x]),topic);
+            retuened_index = index[x];
+            selected_index = selected_answers[x];
+
+            if(retuened_index.equals(selected_index))
+            {
+                a[x] = top.getAnswer(Integer.parseInt(index[x+1]),topic);
+            }
+            else
+            {
+                a[x] = top.getAnswer(Integer.parseInt(index[x]),topic);
+            }
+
         }
 
         return a;

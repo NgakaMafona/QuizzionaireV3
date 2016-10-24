@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="za.co.codetribe.quizzionarev3.Questions"
-    android:background="@drawable/quiz_back4">
+    android:background="@drawable/quiz_back2">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,6 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+        app:srcCompat="@android:drawable/ic_menu_revert"/>
 
 </android.support.design.widget.CoordinatorLayout>

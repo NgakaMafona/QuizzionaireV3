@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         int id = view.getId();
 
-
-
         if(id == R.id.imb_movies)
         {
             title = "Movies";
@@ -88,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent i = new Intent(MainActivity.this,Questions.class);
                 i.putExtra("title",title);
                 startActivity(i);
+                finish();
             }
         },1200);
 

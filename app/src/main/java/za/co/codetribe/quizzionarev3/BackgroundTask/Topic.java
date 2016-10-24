@@ -11,16 +11,70 @@ public class Topic
     private String[] index = {"0","1","2","3","4","5","6","7","8","9"};
 
     //Movies Q&A
-    private String[] m_questions = {"M1_Q","M2_Q","M3_Q","M4_Q","M5_Q","M6_Q","M7_Q","M8_Q","M9_Q","M10_Q"};
-    private String[] m_answers = {"M1_A","M2_A","M3_A","M4_A","M5_A","M6_A","M7_A","M8_A","M9_A","M10_A"};
+    private String[] m_questions = {"What's the highest grossing movie of all time?",
+                                    "Whats the most expensive production movie?",
+                                    "Which universe does Deadpool belong to?",
+                                    "How many Harry Potter movies are there?",
+                                    "Which movie trilogy stared Keano Reeves as Neo?",
+                                    "Which monster terrorised Tokyo?",
+                                    "Which creature was Dracula?",
+                                    "Which Gorge Miller movie won numerous awards?",
+                                    "Which anime adaptation sucked way too much?",
+                                    "Whats the most successful video game movie to date?"};
+    private String[] m_answers = {"Avatar",
+                                  "Pirates of the Caribbean: At Worlds End",
+                                  "Marvel",
+                                  "7",
+                                  "The Matrix trilogy",
+                                  "Godzilla",
+                                  "Vampire",
+                                  "Mad Max: Fury Road",
+                                  "Dragon Ball Z",
+                                  "Warcraft"};
 
     //Cars Q&A
-    private String[] c_questions = {"C1_Q","C2_Q","C3_Q","C4_Q","C5_Q","C6_Q","C7_Q","C8_Q","C9_Q","C10_Q"};
-    private String[] c_answers = {"C1_A","C2_A","C3_A","C4_A","C5_A","C6_A","C7_A","C8_A","C9_A","C10_A"};
+    private String[] c_questions = {"Whats the fastest production car?",
+                                    "Which car was the first to be called a hyper car?",
+                                    "Which car is considered to have the most fuel economical V8?",
+                                    "Which group does Jaguar belong to?",
+                                    "Whats the smallest car ever manufactured?",
+                                    "Which brand is best for rally racing?",
+                                    "Which manufacturer only produces construction truck?",
+                                    "Which car is refereed to as Godzilla?",
+                                    "Which car did Victoria Beckem be a design consultant for?",
+                                    "Which manufacturer ony produces electric cars?"};
+    private String[] c_answers =   {"Hennesy Vennom GT",
+                                    "Pagani Huayra",
+                                    "Corvette C7",
+                                    "Tata",
+                                    "Peele 50",
+                                    "Subaru",
+                                    "CAT",
+                                    "Nissan GTR",
+                                    "Range Rover E-Vogue",
+                                    "Tesla"};
 
     //Tech Q&A
-    private String[] t_questions = {"T1_Q","T2_Q","T3_Q","T4_Q","T5_Q","T6_Q","T7_Q","T8_Q","T9_Q","T10_Q"};
-    private String[] t_answers = {"T1_A","T2_A","T3_A","T4_A","T5_A","T6_A","T7_A","T8_A","T9_A","T10_A"};
+    private String[] t_questions = {"Which company made the first mag-lev hoverboard?",
+                                    "Which company has the widely used Operating System?",
+                                    "Which company produces slim gaming laptops?",
+                                    "Which company uses the slogan 'Think different'?",
+                                    "Which company made the first ever wireless phone?",
+                                    "Which giant tech company is known to connect friends and family?",
+                                    "Which company has the best search engine?",
+                                    "Which gaming console first came 4K support?",
+                                    "Whats the best gaming laptop?",
+                                    "Which company creates processors for computers?"};
+    private String[] t_answers = {"Lexus",
+                                    "Microsoft",
+                                    "Razor",
+                                    "Apple",
+                                    "Motorola",
+                                    "Facebook",
+                                    "Google",
+                                    "Sony Play Station 4",
+                                    "Alienware",
+                                    "Intel"};
 
     public Topic()
     {

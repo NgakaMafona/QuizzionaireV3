@@ -17,7 +17,6 @@
         </activity>
         <activity
             android:name=".Questions"
-            android:label="@string/title_activity_questions"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
